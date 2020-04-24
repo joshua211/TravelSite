@@ -2,22 +2,19 @@
 Web project for the course 'Softwaretechnik 2'
 
 ### Prerequisites
+[dotnet core sdk](https://dotnet.microsoft.com/download) >= 3.1
 ```
-dotnet core >= 3.1
 dotnet --version
 ```
+entity framework core
 ```
-entity framework
 dotnet tool install --global dotnet-ef
 ```
+[nodeJs](https://nodejs.org/en/download/) >= 11
 ```
-nodeJS >= 11
 node -v
 ```
-```
-sqllite
-```
-###Use in development
+### Prepare database
 ```
 dotnet ef database update
 ```
