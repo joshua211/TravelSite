@@ -18,3 +18,14 @@ node -v
 ```
 dotnet ef database update
 ```
+
+### Run local
+```
+dotnet run
+```
+or
+```
+dotnet watch run
+```
+for hot reload
+
