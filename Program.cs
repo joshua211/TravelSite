@@ -15,6 +15,7 @@ namespace TravelSite
         {
             CreateHostBuilder(args).Build().Run();
             Console.WriteLine("Test");
+            Console.Write("Neuer Versuch");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
