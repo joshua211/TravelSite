@@ -15,6 +15,7 @@ namespace TravelSite.Controllers
             return Greetings[random.Next(3)];
         }
 
+
         public string[] Greetings = {
             "Hallo",
             "Hello",
