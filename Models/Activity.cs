@@ -7,7 +7,7 @@ namespace TravelSite.Models
         public int Id { get; set; }
         public double Price { get; set; }
         public Category Category { get; set; }
-        public List<string> RequiredEquipment { get; set; }
+        public string[] RequiredEquipment { get; set; }
         public string Summary { get; set; }
     }
 

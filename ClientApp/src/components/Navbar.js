@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AuthBar from "./authorization/AuthBar";
 
 class Navbar extends Component {
   constructor(props) {
@@ -52,12 +53,7 @@ class Navbar extends Component {
           </div>
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                <a className="button is-info">
-                  <strong>Sign up</strong>
-                </a>
-                <a className="button is-light">Log in</a>
-              </div>
+              <div className="buttons">{<AuthBar />}</div>
             </div>
           </div>
         </div>
