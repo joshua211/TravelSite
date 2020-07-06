@@ -1,2 +1,33 @@
 @import "../node_modules/bulma/bulma";
 @import "~react-bulma-components/src/index.sass";
+
+
+.is-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.activityEditor .field {
+    width: 50%;
+}
+
+.activityContainer {
+    margin-left: 2%;
+
+    .subtitle {
+        margin-left: -2%;
+    }
+}
+
+.activityOptions {
+    label {
+        margin-left: 10px;
+    }
+}
+
+.registerForm {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+}

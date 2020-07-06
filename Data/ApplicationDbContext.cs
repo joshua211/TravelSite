@@ -7,15 +7,51 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TravelSite.Data
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+            DbContextOptions options) : base(options)
         {
+
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            var valueComparer = new ValueComparer<string[]>(
+            (c1, c2) => c1.SequenceEqual(c2),
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+            c => c.ToHashSet().ToArray());
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Activity>().Property(e => e.RequiredEquipment)
+            .Metadata.SetValueComparer(valueComparer);
+            modelBuilder.Entity<Activity>().Property(e => e.RequiredEquipment)
+            .HasConversion(
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasKey(at => new { at.ActivityId, at.TravelId });
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasOne(at => at.Activity)
+            .WithMany(a => a.ActivitityTravels)
+            .HasForeignKey(at => at.ActivityId);
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasOne(at => at.Travel)
+            .WithMany(t => t.ActivitityTravels)
+            .HasForeignKey(at => at.TravelId);
+        }
+
+        public DbSet<Travel> Travels { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityTravel> ActivityTravels { get; set; }
     }
 }

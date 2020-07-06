@@ -1,0 +1,16 @@
+.authMenu {
+    position: fixed;
+    display: block;
+    height: 20vh;
+    background-color: #363636;
+    padding: 20px;
+    border: 1px solid white;
+}
+
+@media screen and (min-width: 900px) {
+    .authMenu {
+        right: 5px;
+        top: 5px;
+        width: 20vw;
+    }
+}
