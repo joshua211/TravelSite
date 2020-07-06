@@ -35,9 +35,23 @@ namespace TravelSite.Data
             .HasConversion(
                 v => string.Join(',', v),
                 v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasKey(at => new { at.ActivityId, at.TravelId });
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasOne(at => at.Activity)
+            .WithMany(a => a.ActivitityTravels)
+            .HasForeignKey(at => at.ActivityId);
+
+            modelBuilder.Entity<ActivityTravel>()
+            .HasOne(at => at.Travel)
+            .WithMany(t => t.ActivitityTravels)
+            .HasForeignKey(at => at.TravelId);
         }
 
         public DbSet<Travel> Travels { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityTravel> ActivityTravels { get; set; }
     }
 }

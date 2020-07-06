@@ -18,7 +18,7 @@ class AuthBar extends Component {
           </div>
         ) : (
           <div>
-            <a className="button is-info">
+            <a href="/register" className="button is-info">
               <strong>Sign up</strong>
             </a>
             <a onClick={this.ToggleShowLogin} className="button is-light">

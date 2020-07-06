@@ -26,7 +26,7 @@ namespace TravelSite.Data
 
             if (context.Activities.Find(1) == null)
             {
-                var activity = new Activity() { Category = Category.Sport, Price = 10, RequiredEquipment = new string[1], Summary = "Test activity" };
+                var activity = new Activity() { Category = Category.Sport, Name = "Surfing", Price = 10, Location = "Germany", OrganizerId = "1", RequiredEquipment = new string[1], Summary = "Surfing in the water" };
                 context.Activities.Add(activity);
                 context.SaveChanges();
             }

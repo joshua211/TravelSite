@@ -6,7 +6,7 @@ import { Home } from "../Home.js";
 class AuthRoute extends Component {
   constructor(props) {
     super(props);
-    this.state = { isAuthorized: false };
+    this.state = { isAuthorized: false, ready: false };
   }
 
   componentDidMount() {
@@ -16,13 +16,28 @@ class AuthRoute extends Component {
 
   GetAuthorized = (role) => {
     this.setState({
+      ready: true,
       isAuthorized: authService.isAuthenticated() && authService.hasRole(role),
     });
   };
 
   render() {
-    const component = this.state.isAuthorized ? this.props.component : Home;
-    return <Route path={this.props.path} component={component} />;
+    const { component: Component, ...rest } = this.props;
+    const authorized = this.state.isAuthorized;
+    if (this.state.ready)
+      return (
+        <Route
+          {...rest}
+          render={(props) => {
+            if (authorized) {
+              return <Component {...props} />;
+            } else {
+              return <Redirect to={"/"} />;
+            }
+          }}
+        />
+      );
+    else return <div></div>;
   }
 }
 

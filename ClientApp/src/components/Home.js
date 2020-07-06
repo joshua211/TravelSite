@@ -16,10 +16,10 @@ export class Home extends Component {
         <div className="hero-body">
           <div className="container">
             <h1 className="title">{this.state.greeting}</h1>
-            <h2 className="subtitle">
-              Some random text like idk book a travel?
-            </h2>
-            <button className="button is-large is-dark">do something</button>
+            <h2 className="subtitle">Join now and book your next adventure!</h2>
+            <a href="/register" className="button is-large is-dark">
+              Register
+            </a>
           </div>
         </div>
       </section>

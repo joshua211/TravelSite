@@ -30,8 +30,9 @@ namespace TravelSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+             {
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+             });
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -62,7 +63,9 @@ namespace TravelSite
                 options.Password.RequireLowercase = false;
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddRazorPages();
 
             // In production, the React files will be served from this directory

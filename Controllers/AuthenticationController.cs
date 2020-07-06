@@ -42,6 +42,9 @@ namespace TravelSite.Controllers
             var user = await _userManager.FindByEmailAsync(login.Email);
             //var roles = await _userManager.GetRolesAsync(user);
             var claims = await _userManager.GetClaimsAsync(user);
+            claims.Add(new Claim(ClaimTypes.Email, login.Email));
+            claims.Add(new Claim(ClaimTypes.Name, login.Email));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -59,9 +62,22 @@ namespace TravelSite.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult> Register()
+        public async Task<ActionResult> Register(RegisterModel model)
         {
-            return await Task.FromResult<ActionResult>(null);
+            var existing = await _userManager.FindByEmailAsync(model.Email);
+            if (existing != null)
+                return BadRequest();
+
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Role = model.Role,
+                Email = model.Email
+            };
+
+            await _userManager.CreateAsync(user, model.Password);
+
+            return Ok();
         }
     }
 }
