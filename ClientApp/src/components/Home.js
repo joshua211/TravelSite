@@ -22,6 +22,13 @@ export class Home extends Component {
             </a>
           </div>
         </div>
+        <div className="hero-foot">
+          <footer class="footer">
+            <div class="content has-text-centered">
+              <p>Origineller Gruppenname © 2020</p>
+            </div>
+          </footer>
+        </div>
       </section>
     );
   }

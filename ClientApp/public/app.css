@@ -1,0 +1,4 @@
+.hero-body {
+    background: url("./hero.jpg") no-repeat;
+    background-size: cover;
+}
